@@ -29,16 +29,14 @@ class WeedingListener(private val plugin: Weeding) : Listener {
             if (itemStack.type == Material.TOTEM && itemStack.itemMeta.displayName == WeedingItem.TOTEM_NAME) {
                 val hash: HashSet<Byte>? = null
                 val targetLocation = player.getTargetBlock(hash, 100).location
-                val radius = 5
-                for (x in -radius..radius) {
-                    for (y in -radius..radius) {
-                        for (z in -radius..radius) {
+                val range = 5
+                for (x in -range..range) {
+                    for (y in -range..range) {
+                        for (z in -range..range) {
                             val targetX = (targetLocation.x + x).toInt()
                             val targetY = (targetLocation.y + y).toInt()
                             val targetZ = (targetLocation.z + z).toInt()
-
                             val block = player.world.getBlockAt(targetX, targetY, targetZ)
-
                             if (weeding(block)) {
                                 count += 1
                             }
