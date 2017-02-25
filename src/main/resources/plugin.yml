@@ -1,0 +1,9 @@
+name: Weeding
+version: @version@
+main: net.atlantis.weeding.Weeding
+
+commands:
+  weeding:
+    description: weeding command
+    usage: /<command>
+    permission-message: You don't have <permission>
