@@ -45,7 +45,9 @@ class WeedingListener(private val plugin: Weeding) : Listener {
                         }
                     }
                 }
-                player.playSound(player.location, Sound.ENTITY_ENDERMEN_TELEPORT, 3.0f, 0.533f)
+                if (count > 0) {
+                    player.playSound(player.location, Sound.ENTITY_ENDERMEN_TELEPORT, 3.0f, 0.533f)
+                }
                 player.sendMessage("[" + ChatColor.AQUA.toString() + ChatColor.BOLD.toString() + "Weeding" + ChatColor.RESET.toString() + "] $count 個除草しました")
             }
         }
