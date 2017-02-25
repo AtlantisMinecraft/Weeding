@@ -1,6 +1,7 @@
 package net.atlantis.weeding.listener
 
 import net.atlantis.weeding.Weeding
+import net.atlantis.weeding.item.WeedItem
 import net.atlantis.weeding.item.WeedingItem
 import org.bukkit.ChatColor
 import org.bukkit.Material
@@ -26,7 +27,7 @@ class WeedingListener(private val plugin: Weeding) : Listener {
             val player = event.player
             val itemStack = player.inventory.itemInMainHand
             var count = 0
-            if (itemStack.type == Material.TOTEM && itemStack.itemMeta.displayName == WeedingItem.TOTEM_NAME) {
+            if (WeedingItem.isWeedingTotem(itemStack)) {
                 val hash: HashSet<Byte>? = null
                 val targetLocation = player.getTargetBlock(hash, 100).location
                 val range = 5
@@ -52,8 +53,7 @@ class WeedingListener(private val plugin: Weeding) : Listener {
     }
 
     private fun weeding(block: Block): Boolean {
-        val type = block.type
-        if (type == Material.LONG_GRASS || type == Material.DOUBLE_PLANT || type == Material.YELLOW_FLOWER || type == Material.RED_ROSE) {
+        if (WeedItem.isWeedItem(block)) {
             block.type = Material.AIR
             block.world.spawnParticle(Particle.LAVA, block.location, 2)
             return true
