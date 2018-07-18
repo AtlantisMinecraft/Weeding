@@ -8,7 +8,7 @@ class Weeding : JavaPlugin() {
 
     override fun onEnable() {
         WeedingListener(this)
-        this.getCommand("weeding").executor = WeedingCommand(this)
+        getCommand("weeding").executor = WeedingCommand(this)
     }
 
     override fun onDisable() {
