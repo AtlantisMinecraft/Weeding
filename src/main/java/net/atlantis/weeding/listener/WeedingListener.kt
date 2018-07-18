@@ -12,8 +12,6 @@ import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.block.Action
 import org.bukkit.event.player.PlayerInteractEvent
-import java.util.*
-
 
 class WeedingListener(private val plugin: Weeding) : Listener {
 
@@ -22,13 +20,13 @@ class WeedingListener(private val plugin: Weeding) : Listener {
     }
 
     @EventHandler
-    fun PlayerInteractEvent(event: PlayerInteractEvent) {
+    fun onClick(event: PlayerInteractEvent) {
         if (event.action == Action.RIGHT_CLICK_AIR || event.action == Action.RIGHT_CLICK_BLOCK) {
             val player = event.player
             val itemStack = player.inventory.itemInMainHand
             var count = 0
             if (WeedingItem.isWeedingTotem(itemStack)) {
-                val hash: HashSet<Byte>? = null
+                val hash: Set<Material>? = null
                 val targetLocation = player.getTargetBlock(hash, 100).location
                 val range = 5
                 for (x in -range..range) {
@@ -52,13 +50,12 @@ class WeedingListener(private val plugin: Weeding) : Listener {
         }
     }
 
-    private fun weeding(block: Block): Boolean {
-        if (WeedItem.isWeedItem(block)) {
-            block.type = Material.AIR
-            block.world.spawnParticle(Particle.LAVA, block.location, 2)
-            return true
-        } else {
-            return false
-        }
+    private fun weeding(block: Block): Boolean = if (WeedItem.isWeedItem(block)) {
+        block.type = Material.AIR
+        block.world.spawnParticle(Particle.LAVA, block.location, 2)
+        true
+    } else {
+        false
     }
+
 }

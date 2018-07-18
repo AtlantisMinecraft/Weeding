@@ -10,8 +10,7 @@ import org.bukkit.entity.Player
 class WeedingCommand(private val plugin: Weeding) : CommandExecutor {
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<String>): Boolean {
         if (sender is Player) {
-            val player = sender
-            player.inventory.addItem(WeedingItem.totem())
+            sender.inventory.addItem(WeedingItem.totem())
             return true
         }
         return false
